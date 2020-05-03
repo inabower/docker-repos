@@ -1,4 +1,4 @@
-FROM inabower/openfoam-v1912-ubuntu20
+FROM inabower/openfoam-v1912-ubuntu20-nopv
 
 SHELL ["/bin/bash", "-c"]
 WORKDIR /home/ofuser
