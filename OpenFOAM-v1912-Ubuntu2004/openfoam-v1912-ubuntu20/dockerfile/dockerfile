@@ -1,0 +1,17 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y flex bison cmake zlib1g-dev libboost-system-dev libboost-thread-dev libopenmpi-dev openmpi-bin gnuplot libreadline-dev libncurses-dev libxt-dev
+RUN apt-get install -y libscotch-dev libcgal-dev 
+RUN apt-get install -y wget
+WORKDIR /home/OpenFOAM/
+RUN sh -c "wget -O - https://sourceforge.net/projects/openfoam/files/v1912/ThirdParty-v1912.tgz | tar zx"
+RUN sh -c "wget -O - https://sourceforge.net/projects/openfoam/files/v1912/OpenFOAM-v1912.tgz | tar zx"
+SHELL ["/bin/bash", "-c"]
+WORKDIR /home/OpenFOAM/OpenFOAM-v1912
+RUN source /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc && ./Allwmake
+
+RUN apt-get install -y vim byobu x11-apps
+RUN apt-get install -y paraview

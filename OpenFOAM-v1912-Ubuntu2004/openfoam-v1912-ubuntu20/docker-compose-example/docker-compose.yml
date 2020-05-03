@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  of1912:
+    build: .
+    container_name: of1912
+    volumes:
+      - D:/mnt/of1912 # your mount
+    environment:
+      DISPLAY: 192.168.10.106:0.0 # your IP

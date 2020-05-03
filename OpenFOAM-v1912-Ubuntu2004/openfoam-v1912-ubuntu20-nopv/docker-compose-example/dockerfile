@@ -1,0 +1,5 @@
+FROM inabower/openfoam-v1912-ubuntu20
+
+SHELL ["/bin/bash", "-c"]
+WORKDIR /home/ofuser
+RUN echo ". /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc" >> ~/.bashrc;. ~/.bashrc

@@ -1,0 +1,27 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y flex bison cmake zlib1g-dev libboost-system-dev libboost-thread-dev libopenmpi-dev openmpi-bin gnuplot libreadline-dev libncurses-dev libxt-dev
+RUN apt-get install -y libscotch-dev libcgal-dev 
+RUN apt-get install -y wget
+WORKDIR /home/OpenFOAM/
+RUN sh -c "wget -O - https://sourceforge.net/projects/openfoam/files/v1912/ThirdParty-v1912.tgz | tar zx"
+RUN sh -c "wget -O - https://sourceforge.net/projects/openfoam/files/v1912/OpenFOAM-v1912.tgz | tar zx"
+SHELL ["/bin/bash", "-c"]
+WORKDIR /home/OpenFOAM/OpenFOAM-v1912
+RUN source /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc && ./Allwmake
+
+RUN apt-get install -y vim byobu x11-apps
+RUN apt-get install -y python3 python3-dev freeglut3 freeglut3-dev mesa-utils
+RUN apt-get install -y qt5-default qt5-qmake qttools5-dev qtbase5-dev qtdeclarative5-dev libqt5x11extras5-dev
+RUN apt-get install -y libqt5svg5-dev qtxmlpatterns5-dev-tools
+
+WORKDIR /home/OpenFOAM/ThirdParty-v1912
+RUN wget -O - "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.8&type=source&os=Sources&downloadFile=ParaView-v5.8.0.tar.gz" | tar zx
+RUN wget -O - http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/metis-5.1.0.tar.gz | tar zx
+RUN sed -i -e "s/bin\/sh/bin\/bash/" makeParaView
+RUN sed -i -e "s/ParaView_VERSION=5.6.3/ParaView_VERSION=5.8.0/" ../OpenFOAM-v1912/etc/config.sh/paraview
+RUN source /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc && ./makeParaView -python -python-lib /usr/lib/x86_64-linux-gnu/libpython3.8.so.1.0 -python-include /usr/include/python3.8/
+
