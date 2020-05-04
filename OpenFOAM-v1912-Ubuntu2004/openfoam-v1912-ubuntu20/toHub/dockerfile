@@ -14,4 +14,21 @@ WORKDIR /home/OpenFOAM/OpenFOAM-v1912
 RUN source /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc && ./Allwmake
 
 RUN apt-get install -y vim byobu x11-apps
-RUN apt-get install -y paraview
+RUN apt-get install -y python3 python3-dev freeglut3 freeglut3-dev mesa-utils
+RUN apt-get install -y qt5-default qt5-qmake qttools5-dev qtbase5-dev qtdeclarative5-dev libqt5x11extras5-dev
+RUN apt-get install -y libqt5svg5-dev qtxmlpatterns5-dev-tools
+
+WORKDIR /home/OpenFOAM/ThirdParty-v1912
+RUN sed -i -e "s/bin\/sh/bin\/bash/" makeParaView
+RUN apt-get install -y python python-dev
+RUN source /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc && ./makeParaView -python2 -python-lib /usr/lib/x86_64-linux-gnu/libpython2.7.so.1.0
+
+WORKDIR /home/OpenFOAM/OpenFOAM-v1912/applications/utilities/postProcessing/graphics/PVReaders
+RUN source /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc && ./Allwclean && ./Allwmake
+
+WORKDIR /home/OpenFOAM/OpenFOAM-v1912
+RUN chmod -R 775 applications src tutorials etc doc modules
+WORKDIR /home/OpenFOAM/ThirdParty-v1912
+RUN chmod -R 775 etc ParaView-v5.6.3/Examples
+
+WORKDIR /home/OpenFOAM/

@@ -1,0 +1,9 @@
+FROM inabower/openfoam-v1912-ubuntu20-pv58
+
+RUN apt-get install -y python3-pip
+RUN pip3 install jupyterlab scipy numpy pandas matplotlib seaborn
+
+WORKDIR /home/Salome-Meca
+RUN wget -O - https://www.code-aster.org/FICHIERS/salome_meca-2019.0.3-1-universal.tgz | tar zx
+RUN apt-get install -y python python-dev
+RUN ./salome_meca-2019.0.3-1-universal.run -t /home/Salome-Meca

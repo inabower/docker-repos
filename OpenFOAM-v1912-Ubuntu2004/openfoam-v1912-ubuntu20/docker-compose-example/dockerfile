@@ -1,5 +1,11 @@
 FROM inabower/openfoam-v1912-ubuntu20
 
-SHELL ["/bin/bash", "-c"]
-WORKDIR /home/ofuser
-RUN echo ". /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc" >> ~/.bashrc;. ~/.bashrc
+ARG DOCKER_UID=1000
+ARG DOCKER_USER=ofuser
+ARG DOCKER_PASSWORD=ofuser
+RUN useradd -m --uid ${DOCKER_UID} --groups root ${DOCKER_USER}
+RUN echo ${DOCKER_USER}:${DOCKER_PASSWORD} | chpasswd
+
+USER ${DOCKER_USER}
+WORKDIR /home/${DOCKER_USER}
+RUN echo ". /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc" >> ~/.bashrc
