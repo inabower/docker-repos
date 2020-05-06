@@ -121,8 +121,8 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
 RUN .cargo/bin/cargo install evcxr_jupyter && .cargo/bin/evcxr_jupyter --install
 
 # Set bashrc
-RUN echo 'export LD_LIBRARY_PATH="/opt/GetFEM/getfem-5.4/src/.libs/:${LD_LIBRARY_PATH}""' >> ~/.bashrc
-RUN echo 'export PYTHONPATH="/opt/GetFEM/getfem-5.4/interface/src/python/:${PYTHONPATH}""' >> ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH="/opt/GetFEM/getfem-5.4/src/.libs/:${LD_LIBRARY_PATH}"' >> ~/.bashrc
+RUN echo 'export PYTHONPATH="/opt/GetFEM/getfem-5.4/interface/src/python/:${PYTHONPATH}"' >> ~/.bashrc
 #RUN echo 'alias salome="/opt/Salome-Meca/appli_V2019.0.3_universal/salome"' >> ~/.bashrc
 RUN echo 'alias of1912="source /opt/OpenFOAM/OpenFOAM-v1912/etc/bashrc"' >> ~/.bashrc
 RUN echo 'alias julia="/opt/Julia/julia-1.4.1/bin/julia"' >> ~/.bashrc

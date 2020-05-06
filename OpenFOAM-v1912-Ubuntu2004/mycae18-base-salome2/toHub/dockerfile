@@ -124,14 +124,14 @@ USER root
 # Install Salome-Meca 2019.03 from binary
 WORKDIR /opt/Salome
 RUN wget https://files.salome-platform.org/Salome/Salome9.4.0/SALOME-9.4.0-UB18.04-SRC.tar.gz
-#RUN ./salome_meca-2019.0.3-1-universal.run -t /opt/Salome-Meca && rm ./salome_meca-2019.0.3-1-universal.run
+RUN tar zxf SALOME-9.4.0-UB18.04-SRC.tar.gz
 
 USER ${DOCKER_USER}
 WORKDIR /home/${DOCKER_USER}
 # Set bashrc
 RUN echo 'export LD_LIBRARY_PATH="/opt/GetFEM/getfem-5.4/src/.libs/:${LD_LIBRARY_PATH}""' >> ~/.bashrc
 RUN echo 'export PYTHONPATH="/opt/GetFEM/getfem-5.4/interface/src/python/:${PYTHONPATH}""' >> ~/.bashrc
-#RUN echo 'alias salome="/opt/Salome-Meca/appli_V2019.0.3_universal/salome"' >> ~/.bashrc
+RUN echo 'alias salome="/opt/Salome/SALOME-9.4.0-UB18.04-SRC/salome"' >> ~/.bashrc
 RUN echo 'alias of1912="source /opt/OpenFOAM/OpenFOAM-v1912/etc/bashrc"' >> ~/.bashrc
 RUN echo 'alias julia="/opt/Julia/julia-1.4.1/bin/julia"' >> ~/.bashrc
 RUN echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
