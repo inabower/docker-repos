@@ -1,0 +1,6 @@
+FROM inabower/openfoam1912-salome2019
+
+SHELL ["/bin/bash", "-c"]
+WORKDIR /home/ofuser
+RUN echo ". /home/OpenFOAM/OpenFOAM-v1912/etc/bashrc" >> ~/.bashrc;. ~/.bashrc
+RUN echo 'alias salome="/home/Salome-Meca/appli_V2019.0.3_universal/salome" >> ~/.bashrc
