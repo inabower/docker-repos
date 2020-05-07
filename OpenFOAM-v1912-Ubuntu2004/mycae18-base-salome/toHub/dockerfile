@@ -128,8 +128,7 @@ RUN ./salome_meca-2019.0.3-1-universal.run -t /opt/Salome-Meca && rm ./salome_me
 
 # Install Salome-Meca 2019.03 from binary
 WORKDIR /opt/Salome
-RUN wget https://files.salome-platform.org/Salome/Salome9.4.0/SALOME-9.4.0-UB18.04-SRC.tar.gz
-RUN tar zxf SALOME-9.4.0-UB18.04-SRC.tar.gz
+RUN wget -O - https://files.salome-platform.org/Salome/Salome9.4.0/SALOME-9.4.0-UB18.04-SRC.tar.gz | tar zx
 
 USER ${DOCKER_USER}
 WORKDIR /home/${DOCKER_USER}
